@@ -14,14 +14,14 @@ def get_hotels():
 def get_hotel_bookings(hotel_id):
     """Return a list of bookings for the specified hotel."""
     api_endpoint = st.secrets["api"]["endpoint"]
-    response = requests.get(f"{api_endpoint}/Hotels/{hotel_id}/Bookings", timeout=10)
+    response = requests.get(f"{api_endpoint}/Hotels/{hotel_id}/Bookings", timeout=120)
     return response
 
 @st.cache_data
 def invoke_chat_endpoint(question):
     """Invoke the chat endpoint with the specified question."""
     api_endpoint = st.secrets["api"]["endpoint"]
-    response = requests.post(f"{api_endpoint}/Chat", data={"message": question}, timeout=10)
+    response = requests.post(f"{api_endpoint}/Chat", data={"message": question}, timeout=120)
     return response
 
 def main():
