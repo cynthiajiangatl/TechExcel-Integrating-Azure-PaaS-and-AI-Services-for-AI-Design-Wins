@@ -48,7 +48,6 @@ builder.Services.AddSingleton<Kernel>((_) =>
         apiKey: builder.Configuration["ApiManagement:ApiKey"]!
     );
 
-
 #pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     kernelBuilder.AddAzureOpenAITextEmbeddingGeneration(
         deploymentName: builder.Configuration["AzureOpenAI:EmbeddingDeploymentName"]!,
