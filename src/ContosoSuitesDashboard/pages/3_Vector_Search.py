@@ -1,5 +1,6 @@
 import requests
 import streamlit as st
+import json
 
 st.set_page_config(layout="wide")
 
@@ -13,7 +14,7 @@ def handle_vector_search(query_vector, max_results=5, minimum_similarity_score=0
     """Perform a vector search using the VectorSearch endpoint."""
     api_endpoint = st.secrets["api"]["endpoint"]
     headers = {"Content-Type": "application/json"}
-    response = requests.post(f"{api_endpoint}/VectorSearch", data=query_vector, params={"max_results": max_results, "minimum_similarity_score": minimum_similarity_score}, headers=headers, timeout=10, verify=False)
+    response = requests.post(f"{api_endpoint}/VectorSearch", data=query_vector, params={"max_results": max_results, "minimum_similarity_score": minimum_similarity_score}, headers=headers, timeout=120, verify=False)
     return response
 
 def main():
@@ -49,13 +50,16 @@ def main():
             if query:
                 # Vectorize the query text.
                 # Exercise 3 Task 3 TODO #4: Get the vectorized query text by calling handle_query_vectorization.
-                
+                query_vector = handle_query_vectorization(query)
                 # Perform the vector search.
                 # Exercise 3 Task 3 TODO #5: Get the vector search results by calling handle_vector_search.
-                
+                vector_search_results = handle_vector_search(query_vector, max_results, minimum_similarity_score)
                 # Display the results.
                 st.write("## Results")
+                
+                print(vector_search_results)
                 # Exercise 3 Task 3 TODO #6: Display the results as a table.
+                st.table(vector_search_results.json())
                 
             else:
                 st.warning("Please enter a query.")
